@@ -11,6 +11,10 @@ import tempfile
 from pathlib import Path
 
 
+def quote_concat_path(path: Path) -> str:
+    return path.as_posix().replace("'", "'\\''")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--playback", required=True)
@@ -35,10 +39,10 @@ def main() -> None:
                 frame = (playback_path.parent / step["file"]).resolve()
                 if not frame.exists():
                     raise SystemExit(f"frame not found: {frame}")
-                f.write(f"file '{frame.as_posix().replace(chr(39), \"'\\''\")}'\n")
+                f.write(f"file '{quote_concat_path(frame)}'\n")
                 f.write(f"duration {float(step['duration_sec']):.6f}\n")
             last = (playback_path.parent / sequence[-1]["file"]).resolve()
-            f.write(f"file '{last.as_posix().replace(chr(39), \"'\\''\")}'\n")
+            f.write(f"file '{quote_concat_path(last)}'\n")
 
         out = Path(args.out)
         out.parent.mkdir(parents=True, exist_ok=True)
