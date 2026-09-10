@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "name": "architectural-animation",
+  "default": {
+    "prompt": "an architectural space evolving through time, poetic modern architecture, clean geometric forms, soft natural light, cinematic composition, subtle surrealism",
+    "negative_prompt": "low quality, blurry, distorted, deformed, text, watermark, logo",
+    "width": 128,
+    "height": 128,
+    "steps": 12,
+    "guidance_scale": 7.0
+  },
+  "presets": {
+    "architecture": {
+      "prompt": "modern architectural space, concrete structure, geometric composition, dramatic natural light, architectural visualization, cinematic atmosphere",
+      "negative_prompt": "low quality, blurry, distorted architecture, malformed geometry, text, watermark"
+    },
+    "animation": {
+      "prompt": "a small architectural scene changing subtly over time, poetic architecture, geometric forms, changing light, cinematic still frame",
+      "negative_prompt": "low quality, blurry, flickering artifacts, distorted geometry, text, watermark"
+    },
+    "dream": {
+      "prompt": "surreal architectural landscape, impossible geometry, floating structures, soft atmospheric light, dreamlike cinematic scene",
+      "negative_prompt": "low quality, blurry, chaotic geometry, distorted perspective, text, watermark"
+    }
+  }
+}
