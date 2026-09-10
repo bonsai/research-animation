@@ -49,8 +49,8 @@ def main() -> None:
         cmd = [
             ffmpeg, "-y", "-f", "concat", "-safe", "0",
             "-i", str(concat),
-            "-vf", "scale=iw*4:ih*4:flags=nearest,format=yuv420p",
-            "-vsync", "vfr", "-movflags", "+faststart", str(out),
+            "-vf", "scale=iw*4:ih*4:flags=neighbor,format=yuv420p",
+            "-fps_mode", "vfr", "-movflags", "+faststart", str(out),
         ]
         subprocess.run(cmd, check=True)
 
