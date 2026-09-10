@@ -30,10 +30,6 @@ echo "Size     : ${WIDTH}x${HEIGHT}"
 echo "FPS      : 2-7"
 echo
 
-# --------------------------------------------------
-# 1. Local SD model diagnostics
-# --------------------------------------------------
-
 echo "[1/4] checking local SD 1.5 model..."
 
 if [[ ! -d "$MODEL_DIR" ]]; then
@@ -50,10 +46,6 @@ fi
 echo "SD model: OK"
 
 echo
-# --------------------------------------------------
-# 2. Frame Pool
-# --------------------------------------------------
-
 echo "[2/4] generating frames..."
 python3 generate_frames.py \
     --count "$COUNT" \
@@ -63,20 +55,14 @@ python3 generate_frames.py \
     --cfg "$CFG" \
     --prompt "a tiny hand-drawn animation frame"
 
-# --------------------------------------------------
-# 3. Random playback
-# --------------------------------------------------
-
 echo
- echo "[3/4] creating random playback..."
+echo "[3/4] creating random playback..."
 python3 playback.py \
-    --frames ../frames \
+    --frames ../frames/frames.csv \
+    --count "$COUNT" \
     --min-fps 2 \
-    --max-fps 7
-
-# --------------------------------------------------
-# 4. Done
-# --------------------------------------------------
+    --max-fps 7 \
+    --out ../frames/playback.json
 
 echo
 echo "[4/4] done."
