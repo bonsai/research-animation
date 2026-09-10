@@ -1,0 +1,23 @@
+{
+  "id": "RX-ARCH-001-001",
+  "subject": "researcher",
+  "timestamp": "2026-09-10T00:00:00Z",
+  "trigger": "EXP-ARCH-001 procedural architectural animation",
+  "prior_state": {
+    "representation": "static_3d",
+    "question": "Can temporal construction add architectural understanding?"
+  },
+  "experience": "Temporal construction made the sequence from structural grid to enclosure and circulation easier to inspect.",
+  "interpretation": "Time may function as a research dimension rather than only a presentation effect.",
+  "state_update": {
+    "representation": "temporal_3d",
+    "candidate_relation": "construction_sequence_to_spatial_experience"
+  },
+  "uncertainty": 0.7,
+  "confidence": 0.3,
+  "strategy_change": "Compare temporal and static representations directly.",
+  "method_change": "Add frame/time as an observation coordinate.",
+  "decision_change": "Run paired static-vs-temporal evaluation before claiming explanatory value.",
+  "next_question": "Does animation reveal spatial relations that static 3D does not?",
+  "evidence_refs": []
+}
