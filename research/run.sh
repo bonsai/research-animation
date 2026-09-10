@@ -30,7 +30,10 @@ echo "FPS      : 2-7"
 echo
 
 echo "[1/4] checking SD API..."
-if ! curl -fsS "${SD_URL}/sdapi/v1/sd-models" >/dev/null 2>&1; then
+echo "GET ${SD_URL}/sdapi/v1/sd-models"
+
+if ! curl -fsS --connect-timeout 3 --max-time 10 \
+    "${SD_URL}/sdapi/v1/sd-models"; then
     echo
     echo "SD APIが起動していません。"
     echo
@@ -40,9 +43,12 @@ if ! curl -fsS "${SD_URL}/sdapi/v1/sd-models" >/dev/null 2>&1; then
     echo
     exit 1
 fi
+
+echo
 echo "SD API: OK"
 
 echo
+
 echo "[2/4] generating frames..."
 python3 generate_frames.py \
     --sd-url "$SD_URL" \
