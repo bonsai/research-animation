@@ -1,76 +1,60 @@
 # research-animation
 
-SD 1.5で大量の小さな静止画を生成し、再生時にランダムなテンポを与えてコマドリアニメーションを研究する。
+抽象的な変化を、点と運動だけで表現するアニメーション研究。
 
-## Local SD
+生成AIやSDは使わず、最初のPoCは **LangGraphの `aw` 変化セル + Pillow renderer** で構成する。
 
-既存のローカルSD環境を利用する。想定モデルルートは `/home/bons/.sd`。
-生成器はSD WebUI互換の `POST /sdapi/v1/txt2img` を利用するため、WebUI側のモデル配置をそのまま使える。
+## dots PoC
 
-SD 1.5は512×512を中心に学習されたモデルなので、PoCでは128×128の極小画像を狙う。小サイズは研究用の速度優先であり、画質を目的にしない。 citeturn0search3
+```text
+state
+  ↓
+LangGraph
+  ↓
+aw (change cell)
+  ↓
+next state
+  ↓
+Pillow
+  ↓
+GIF
+```
 
-## PoC
+`aw` は「どう変化するか」だけを担当し、Pillowは「どう描くか」だけを担当する。
 
-### 1. Frame Poolを生成
+```text
+dots/
+├── aw.py       # LangGraph state transition
+├── render.py   # Pillow renderer
+├── main.py     # animation runner
+└── world.json  # PoC parameters
+```
+
+### Run
 
 ```bash
-python research/generate_frames.py \
-  --prompt "a tiny hand-drawn animation frame" \
-  --count 100 \
-  --width 128 \
-  --height 128
+python -m pip install -r requirements-dots.txt
+python -m dots.main --frames 60 --dots 24 --seed 42
 ```
 
 出力:
 
 ```text
-frames/
-├── 000001.png
-├── 000002.png
-├── ...
-├── frames.csv
-└── frames.json
+output/dots.gif
 ```
 
-`frames.csv` は素材DB、`frames.json` は生成条件・seed等の詳細なprovenance。
+### Design
 
-### 2. 再生レシピを作る
+点を意味そのものとして扱うのではなく、運動によって抽象性を表現する。
 
-```bash
-python research/playback.py \
-  --frames frames/frames.csv \
-  --count 30 \
-  --seed 42 \
-  --min-fps 2 \
-  --max-fps 7
-```
+- 集合 / 分散
+- 同調 / ずれ
+- 発生 / 消滅
+- 反復 / 揺らぎ
+- 同一性 / 変形
 
-出力:
+将来的に `aw` の実装だけを random / rule / Markov / LLM などへ交換できる。Pillow側は変更しない。
 
-```text
-playback/playback.json
-```
+## Existing experiments
 
-生成時にはFPSを決めない。同じFrame Poolから `playback_seed` を変えることで別のアニメーションを作れる。
-
-## Architecture
-
-```text
-local SD 1.5
-    ↓
-Frame Pool
-    ├── PNG
-    ├── frames.csv
-    └── frames.json
-          ↓
-    playback.py
-          ↓
-playback.json
-  frame + random 2–7 fps
-          ↓
-     renderer
-          ↓
-      animation
-```
-
-次段階で `playback.json` をMP4/GIFへレンダリングする。
+既存のSD・建築アニメーション実験は残す。dots PoCはそれらとは独立した、最小の状態遷移実験として追加する。
