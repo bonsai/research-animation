@@ -1,0 +1,8 @@
+name: dots-animation
+version: 1
+
+actions:
+  - name: generate-gif
+    run: python -m dots.main --frames 60 --dots 24 --width 256 --height 256 --seed 42 --output output/dots.gif
+    outputs:
+      - output/dots.gif
