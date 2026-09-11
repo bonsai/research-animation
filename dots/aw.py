@@ -1,10 +1,13 @@
-"""AW change cell: mutate dot state; it does not know how to render pixels."""
+"""LangGraph AW cell: decide actions, not pixels."""
 from __future__ import annotations
 
+import math
 import random
 from typing import TypedDict
 
 from langgraph.graph import END, START, StateGraph
+
+from .action import Action, apply_actions
 
 
 class Dot(TypedDict):
@@ -22,36 +25,48 @@ class AnimationState(TypedDict):
     width: int
     height: int
     seed: int
+    actions: list[Action]
 
 
-def aw_change(state: AnimationState) -> AnimationState:
-    """One abstract visual change step.
-
-    The cell deliberately returns state only. Pillow remains a separate renderer.
-    """
+def aw_action(state: AnimationState) -> AnimationState:
+    """AW decides the next visual actions and returns no rendering concerns."""
     rng = random.Random(state["seed"] + state["frame"])
-    dots: list[Dot] = []
+    actions: list[Action] = []
     for dot in state["dots"]:
         angle = dot["phase"] + rng.uniform(-0.35, 0.35)
         step = rng.uniform(0.8, 3.2)
-        dots.append(
-            {
-                **dot,
-                "x": (dot["x"] + step * __import__("math").cos(angle)) % state["width"],
-                "y": (dot["y"] + step * __import__("math").sin(angle)) % state["height"],
-                "radius": max(1.0, min(8.0, dot["radius"] + rng.uniform(-0.25, 0.25))),
-                "opacity": max(0.2, min(1.0, dot["opacity"] + rng.uniform(-0.03, 0.03))),
-                "phase": angle,
-            }
-        )
-    return {**state, "dots": dots, "frame": state["frame"] + 1}
+        actions.append({
+            "op": "move",
+            "id": dot["id"],
+            "value": step * math.cos(angle),
+            "value_y": step * math.sin(angle),
+        })
+        actions.append({
+            "op": "resize",
+            "id": dot["id"],
+            "value": rng.uniform(-0.25, 0.25),
+            "value_y": 0,
+        })
+        actions.append({
+            "op": "fade",
+            "id": dot["id"],
+            "value": rng.uniform(-0.03, 0.03),
+            "value_y": 0,
+        })
+    return {**state, "actions": actions}
+
+
+def apply(state: AnimationState) -> AnimationState:
+    return apply_actions(state, state.get("actions", []))
 
 
 def build_graph():
     graph = StateGraph(AnimationState)
-    graph.add_node("aw", aw_change)
+    graph.add_node("aw", aw_action)
+    graph.add_node("apply", apply)
     graph.add_edge(START, "aw")
-    graph.add_edge("aw", END)
+    graph.add_edge("aw", "apply")
+    graph.add_edge("apply", END)
     return graph.compile()
 
 
