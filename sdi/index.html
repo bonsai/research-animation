@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SDI Animation PoC</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; min-height:100vh; display:grid; place-items:center; background:#090b10; color:#e8ecf1; font:14px system-ui,sans-serif; }
+  main { width:min(900px,94vw); }
+  header { display:flex; justify-content:space-between; align-items:end; gap:1rem; margin-bottom:.8rem; }
+  h1 { margin:0; font-size:1.15rem; }
+  p { margin:.2rem 0 0; color:#929aaa; }
+  .controls { display:flex; gap:.4rem; flex-wrap:wrap; }
+  button { border:1px solid #39404d; background:#151922; color:#e8ecf1; padding:.45rem .7rem; border-radius:7px; cursor:pointer; }
+  button.active { background:#e8ecf1; color:#090b10; }
+  canvas { width:100%; aspect-ratio:16/9; display:block; background:#0e1118; border:1px solid #252b35; border-radius:10px; }
+  code { color:#b9c5ff; }
+  footer { margin-top:.65rem; color:#737c8b; }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div><h1>Static–Dynamic Interface · PoC 01</h1><p>One static world, replaceable behavior.</p></div>
+  <div class="controls" id="controls"></div>
+</header>
+<canvas id="view" width="960" height="540"></canvas>
+<footer>Static: <code>sdi/world.json</code> · Dynamic: behavior rule only · Interface: capability + relation</footer>
+</main>
+<script>
+const canvas = document.querySelector('#view');
+const ctx = canvas.getContext('2d');
+const controls = document.querySelector('#controls');
+let world;
+let behavior = 'orbit';
+let t = 0;
+
+const behaviors = {
+  orbit(entity, i, time) {
+    const r = Math.hypot(entity.x, entity.y);
+    const base = Math.atan2(entity.y, entity.x);
+    const a = base + time * (0.55 + i * 0.07);
+    return { x: Math.cos(a) * r, y: Math.sin(a) * r };
+  },
+  pulse(entity, i, time) {
+    const k = 1 + 0.22 * Math.sin(time * 2.2 + i);
+    return { x: entity.x * k, y: entity.y * k };
+  },
+  attract(entity, i, time) {
+    const k = 0.58 + 0.30 * (0.5 + 0.5 * Math.sin(time * 1.5 + i * .8));
+    return { x: entity.x * k, y: entity.y * k };
+  }
+};
+
+function button(name) {
+  const b = document.createElement('button');
+  b.textContent = name;
+  b.onclick = () => { behavior = name; [...controls.children].forEach(x=>x.classList.remove('active')); b.classList.add('active'); };
+  controls.appendChild(b);
+  return b;
+}
+['orbit','pulse','attract'].map(button)[0].classList.add('active');
+
+fetch('world.json').then(r => r.json()).then(data => { world = data; requestAnimationFrame(loop); });
+
+function point(p) {
+  return { x: canvas.width/2 + p.x * 330, y: canvas.height/2 - p.y * 330 };
+}
+function loop(ms) {
+  t = ms / 1000;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.strokeStyle = '#252b35';
+  ctx.lineWidth = 2;
+  for (const rel of world.relations) {
+    const a = world.entities.find(e=>e.id===rel.from);
+    const b = world.entities.find(e=>e.id===rel.to);
+    const pa = point(behaviors[behavior](a, world.entities.indexOf(a), t));
+    const pb = point(behaviors[behavior](b, world.entities.indexOf(b), t));
+    ctx.beginPath(); ctx.moveTo(pa.x,pa.y); ctx.lineTo(pb.x,pb.y); ctx.stroke();
+  }
+  world.entities.forEach((e,i) => {
+    const p = point(behaviors[behavior](e,i,t));
+    const pulse = 1 + .08*Math.sin(t*3+i);
+    ctx.beginPath(); ctx.arc(p.x,p.y,e.radius*330*pulse,0,Math.PI*2);
+    ctx.fillStyle = '#e8ecf1'; ctx.fill();
+    ctx.fillStyle = '#090b10'; ctx.font = '12px system-ui'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(e.id,p.x,p.y);
+  });
+  ctx.fillStyle='#737c8b'; ctx.font='12px system-ui'; ctx.textAlign='left'; ctx.fillText(`behavior: ${behavior}`,18,24);
+  requestAnimationFrame(loop);
+}
+</script>
+</body>
+</html>
