@@ -1,0 +1,25 @@
+name: dots-animation
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'dots/**'
+      - 'requirements-dots.txt'
+      - 'wf/dots-animation.yaml'
+      - '.github/workflows/dots-animation.yml'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install -r requirements-dots.txt
+      - run: python -m dots.main --frames 60 --dots 24 --width 256 --height 256 --seed 42 --output output/dots.gif
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dots-gif
+          path: output/dots.gif
