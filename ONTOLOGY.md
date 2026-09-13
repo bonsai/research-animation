@@ -30,6 +30,29 @@ A distinction between two states. Difference is the fundamental candidate for re
 
 A rule, operation, or process that maps one state to another.
 
+### Morph
+
+A transformation in which one form or state is continuously or incrementally mapped into another form or state. Morph therefore makes the **path of change** explicit, rather than describing only the initial and final states.
+
+Morph is a specialized form of Transformation and can be represented as an intermediate sequence of states:
+
+```text
+STATE A
+  ↓
+MORPH
+  ↓
+STATE A₁ → STATE A₂ → STATE A₃ → ... → STATE B
+```
+
+The important distinction is:
+
+```text
+TRANSFORM = A → B
+MORPH      = A → [intermediate states] → B
+```
+
+Morph is therefore useful for generative agents because it specifies not only **what changes**, but a candidate structure for **how the change unfolds**.
+
 ### Time
 
 The dimension in which states and transformations are ordered, delayed, repeated, accelerated, or paused.
@@ -54,11 +77,36 @@ Entity ──relates_to──> Entity
 State ──differs_from──> State
 State ──transformed_by──> Transformation
 Transformation ──produces──> State
+Transformation ──may_be_a──> Morph
+Morph ──interpolates──> State
 State ──ordered_by──> Time
 State ──part_of──> Sequence
 Sequence ──may_be_perceived_as──> Change
 Ontology ──guides──> Generation
 ```
+
+## Morph and Difference
+
+Difference describes the distinction between states. Morph describes a structured path through that difference.
+
+```text
+STATE A ─────────────── STATE B
+     \                  /
+      \    DIFFERENCE  /
+       \              /
+        MORPH / PATH
+             ↓
+   intermediate states
+```
+
+This introduces an important distinction for generative reasoning:
+
+- **Difference** answers: *what is different?*
+- **Transformation** answers: *what operation changes it?*
+- **Morph** answers: *how can the change be continuously or incrementally traversed?*
+- **Time** answers: *when and at what rate does that traversal occur?*
+
+Morph does not necessarily imply literal geometric interpolation. The intermediate states may be visual, semantic, structural, spatial, sonic, narrative, or otherwise representable.
 
 ## Montage relation
 
@@ -100,14 +148,19 @@ The pedagogical aphorism **“What happens between shots happens between your ea
       └── DIFF ─┘
            │
      TRANSFORMATION
-           │
-         TIME
-           │
-       SEQUENCE
-           │
-       PERCEPTION
-           │
-       GENERATION
+        /        \
+     MORPH      OTHER
+       │
+  intermediate
+    STATES
+       │
+      TIME
+       │
+    SEQUENCE
+       │
+   PERCEPTION
+       │
+   GENERATION
 ```
 
 The montage case adds an important relational branch:
@@ -118,7 +171,7 @@ STATE A ──┐
 STATE B ──┘
 ```
 
-The agent therefore needs to represent not only **what changes**, but also **what relation between states produces a perceived effect**.
+The agent therefore needs to represent not only **what changes**, but also **what relation between states produces a perceived effect** and, when relevant, **the path by which one state becomes another**.
 
 ## Agent use
 
@@ -129,7 +182,7 @@ INTENTION
    ↓
 ONTOLOGICAL DESCRIPTION
    ↓
-STATE / DIFFERENCE / RELATION / TRANSFORMATION / TIME
+STATE / DIFFERENCE / RELATION / TRANSFORMATION / MORPH / TIME
    ↓
 GENERATION PLAN
    ↓
@@ -137,6 +190,20 @@ ARTIFACT
 ```
 
 This suggests a research direction in which the agent generates **change specifications first**, and only then generates the medium-specific output.
+
+A morph specification can act as a generative intermediate representation:
+
+```text
+INTENTION
+   ↓
+STATE A + STATE B
+   ↓
+MORPH SPECIFICATION
+   ↓
+INTERMEDIATE STATES
+   ↓
+MEDIA-SPECIFIC GENERATION
+```
 
 ## Animation as a test domain
 
@@ -175,11 +242,22 @@ shot B
    → perceived meaning
 ```
 
-The three cases therefore test different aspects of the same ontology:
+### morph
+
+A source state is transformed through an explicit path of intermediate states toward a target state.
+
+```text
+state A
+   → A₁ → A₂ → A₃
+   → state B
+```
+
+The four cases therefore test different aspects of the same ontology:
 
 - **anima** — concrete visual state change
 - **dots** — abstract structural state change
 - **montage** — relational meaning generated between states/units
+- **morph** — explicit path of transformation between states
 
 ## Ontology vs taxonomy
 
@@ -198,8 +276,8 @@ TAXONOMY = how are those concepts organized for construction?
 
 > **Generative agents need an ontology of change, not merely an ontology of objects.**
 
-A stronger formulation emerging from montage theory is:
+A stronger formulation emerging from montage theory and morphing is:
 
-> **Generative agents need to represent not only states and their differences, but also the relations through which differences become perceptible meaning.**
+> **Generative agents need to represent not only states and their differences, but also the relations through which differences become perceptible meaning and the paths through which one state can become another.**
 
-The research question is therefore not only how an agent can identify what exists, but how it can represent **what can become different, how it becomes different, what relation connects the states, and how that difference can be constructed and perceived in time**.
+The research question is therefore not only how an agent can identify what exists, but how it can represent **what can become different, how it becomes different, what relation connects the states, what path the transformation follows, and how that difference can be constructed and perceived in time**.
