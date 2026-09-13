@@ -2,9 +2,32 @@
 
 抽象的な変化を、点と運動だけで表現するアニメーション研究。
 
-生成AIやSDは使わず、最初のPoCは **LangGraphの `aw` 変化セル + Pillow renderer** で構成する。
+アニメーションを「動画を生成すること」ではなく、**変化を設計し、時間軸へ配置すること**として研究する。
+
+## Research map
+
+```text
+変化の設計
+   ├── dots PoC
+   │    state → aw → next state → Pillow → GIF
+   │
+   └── Case Study: anima / PANACHE
+        storyboard → frame extraction → temporal assembly → video
+```
+
+## Case Study: anima / PANACHE
+
+`anima` は、絵コンテ駆動型アニメーションの実践事例として回収する。
+
+2026/09/13 の PANACHE 告知用ローファイアニメーションでは、32コマを4fpsで連結して8秒の映像にする。前半16コマはりんごの巨大化、後半16コマは齧られていく変化を設計する。
+
+画像生成側には動きそのものを要求せず、複数コマの絵コンテとして生成し、動画側で時間を与える。この「静止画の連続を状態変化として扱う」方法を、research-animation の実作品ケースとして位置づける。
+
+詳細: `cases/anima-panache.md`
 
 ## dots PoC
+
+生成AIやSDは使わず、最初のPoCは **LangGraphの `aw` 変化セル + Pillow renderer** で構成する。
 
 ```text
 state
@@ -57,4 +80,4 @@ output/dots.gif
 
 ## Existing experiments
 
-既存のSD・建築アニメーション実験は残す。dots PoCはそれらとは独立した、最小の状態遷移実験として追加する。
+既存のSD・建築アニメーション実験は残す。`anima` は作品化された絵コンテ駆動型のケース、dots PoCはそれとは独立した最小の状態遷移実験として扱う。
