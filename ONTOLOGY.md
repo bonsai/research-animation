@@ -60,6 +60,32 @@ Sequence ──may_be_perceived_as──> Change
 Ontology ──guides──> Generation
 ```
 
+## Montage relation
+
+Film montage provides an important historical case for the ontology of change.
+
+Eisenstein's montage theory is useful here not because the phrase **「コマとコマの間に映画が宿る」** can be established as a verified direct quotation, but because his theory explicitly treats the relation between shots as productive of meaning. The safer research formulation is:
+
+> **映画はショットそのものだけではなく、ショットとショットの関係によって生成される。**
+
+In particular, montage can be modeled as a relation in which two independently presented units produce a third perceived meaning:
+
+```text
+SHOT A + SHOT B
+      ↓
+   RELATION / COLLISION
+      ↓
+  PERCEIVED MEANING C
+```
+
+This is closely related to the ontology's distinction between **STATE**, **DIFFERENCE**, **RELATION**, and **PERCEPTION**.
+
+For research precision, use **ショット** or **モンタージュ単位** when discussing Eisenstein rather than treating the claim as a statement about individual film frames. Extending the idea from shot-to-shot montage to frame-to-frame animation is a later theoretical generalization.
+
+Kurosawa's editing practice likewise provides a concrete cinematic case in which action and emotional effect are constructed across cuts and fragmented shots. However, the exact phrase 「コマとコマの間に映画が宿る」 should not be attributed to Kurosawa without a primary-source citation.
+
+The pedagogical aphorism **“What happens between shots happens between your ears”** is useful as a description of shot-relational perception, but should not be presented as a quotation by Eisenstein or Kurosawa without evidence.
+
 ## Generative graph
 
 ```text
@@ -84,7 +110,15 @@ Ontology ──guides──> Generation
        GENERATION
 ```
 
-The agent does not need to begin with a finished artifact. It can reason through this graph and construct the artifact from the relations.
+The montage case adds an important relational branch:
+
+```text
+STATE A ──┐
+          ├── RELATION ──> PERCEIVED MEANING
+STATE B ──┘
+```
+
+The agent therefore needs to represent not only **what changes**, but also **what relation between states produces a perceived effect**.
 
 ## Agent use
 
@@ -95,7 +129,7 @@ INTENTION
    ↓
 ONTOLOGICAL DESCRIPTION
    ↓
-STATE / DIFFERENCE / TRANSFORMATION / TIME
+STATE / DIFFERENCE / RELATION / TRANSFORMATION / TIME
    ↓
 GENERATION PLAN
    ↓
@@ -130,7 +164,22 @@ state/structure
    → animation
 ```
 
-The two cases therefore test whether the ontology describes **change itself**, rather than a particular kind of animated object.
+### montage
+
+A cinematic unit acquires or changes meaning through its relation to another unit.
+
+```text
+shot A
+   + relation
+shot B
+   → perceived meaning
+```
+
+The three cases therefore test different aspects of the same ontology:
+
+- **anima** — concrete visual state change
+- **dots** — abstract structural state change
+- **montage** — relational meaning generated between states/units
 
 ## Ontology vs taxonomy
 
@@ -149,4 +198,8 @@ TAXONOMY = how are those concepts organized for construction?
 
 > **Generative agents need an ontology of change, not merely an ontology of objects.**
 
-The research question is therefore not only how an agent can identify what exists, but how it can represent **what can become different, how it becomes different, and how that difference can be constructed in time**.
+A stronger formulation emerging from montage theory is:
+
+> **Generative agents need to represent not only states and their differences, but also the relations through which differences become perceptible meaning.**
+
+The research question is therefore not only how an agent can identify what exists, but how it can represent **what can become different, how it becomes different, what relation connects the states, and how that difference can be constructed and perceived in time**.
