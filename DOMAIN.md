@@ -1,148 +1,212 @@
-# Research Domain: Disney / Pixar
+# Research Domain: 日本アニメーション学会の素朴なアニメーション理論
 
 ## Purpose
 
-The Disney and Pixar corpus is a **domain of investigation** for constructing the theory of animated-film generation.
+本研究の中心は、**日本アニメーション学会および日本のアニメーション研究で蓄積されてきた素朴で基礎的な理論研究**を読むことである。
 
-The objective is not to imitate a studio style. It is to investigate how professional animation practice has developed concepts, terminology, workflows, and principles for turning **intention into perceived cinematic change**.
+最新の映像生成技術、AI動画生成、最新レンダリング技術、商用パイプラインそのものを追うことは目的としない。
 
-## Domain question
+目指すのは、少ない道具でもアニメーションとして成立する条件を理解し、**ローテクな手法でアニメ映画をつくれる理論**を構築することである。
 
-> **映画として成立するアニメーションを生成するために、どのような言葉と概念が必要なのか。**
+## Domain Question
 
-The research focuses on **language design**: identifying, defining, and relating the words that humans and generative agents need in order to describe animated-film construction.
+> **人間が少ない道具と少ない情報からアニメーションを成立させるとき、何を理解し、何を変化させればよいのか。**
 
-## Research targets
+## Research Focus
 
-### Disney
+優先するもの：
 
-Investigate the historical vocabulary and principles of Disney animation, including:
+- アニメーションの原理
+- 動きの知覚
+- コマとコマの関係
+- 状態と変化
+- タイミング
+- 間
+- リズム
+- 反復
+- 誇張
+- キャラクターの動作
+- レイアウト
+- カット
+- 編集
+- 作画
+- 原画と動画
+- 撮影
+- 映画的運動
+- アニメーション史
+- 制作現場の言葉
+- 日本のアニメーション研究史
 
-- character animation
-- staging
-- timing
-- anticipation
-- squash and stretch
-- follow through / overlapping action
-- arcs
-- exaggeration
-- appeal
-- solid drawing
-- secondary action
-- straight ahead / pose to pose
-- story and visual development
+後回しにするもの：
 
-These terms are treated as research objects rather than prescriptions.
+- 最新AI動画モデル
+- 最新生成AIサービス
+- 高度な3DCG技術
+- 最新レンダリング技術
+- 商用AIパイプライン
+- 最新の映像生成ベンチマーク
 
-### Pixar
+これらは必要になった場合のみ参照し、研究の中心には置かない。
 
-Investigate Pixar's vocabulary and production concepts, including:
+## Research Network
 
-- story development
-- story structure
-- character
-- emotion
-- visual storytelling
-- staging
-- camera
-- shot
-- sequence
-- blocking
-- performance
-- timing
-- iteration
-- story reel / editorial
-- world and environment
-
-The research should distinguish terminology that is publicly documented from interpretations reconstructed from films, talks, papers, interviews, books, and production accounts.
-
-## Language design
-
-The central task is to transform domain-specific vocabulary into a reusable conceptual system for generative agents.
+日本アニメーション学会を主要な文献ネットワークとする。
 
 ```text
-DOMAIN TERM
-    ↓
-DEFINITION
-    ↓
-RELATION
-    ↓
-ONTOLOGICAL CONCEPT
-    ↓
-GENERATION OPERATION
-```
-
-For example:
-
-```text
-TIMING
-  → temporal relation
-  → TIME
-  → place / stretch / compress change in time
-
-STAGING
-  → perceptual relation
-  → PERCEPTION / RELATION
-  → arrange information for audience attention
-
-MORPH
-  → transformation path
-  → TRANSFORMATION / SEQUENCE
-  → construct intermediate states
-
-SHOT
-  → cinematic unit
-  → STATE / SEQUENCE / RELATION
-  → generate a bounded perceptual event
-```
-
-These mappings are hypotheses until supported by research evidence.
-
-## Domain-to-ontology bridge
-
-```text
-DISNEY / PIXAR PRACTICE
-          ↓
-   DOMAIN VOCABULARY
-          ↓
-   CONCEPT EXTRACTION
-          ↓
-   CHANGE ONTOLOGY
-          ↓
- GENERATIVE REPRESENTATION
-          ↓
-   ANIMATED FILM
-```
-
-The domain therefore supplies **empirical vocabulary and practices** for testing the abstract ontology.
-
-## Research principles
-
-1. **Primary sources first** where possible.
-2. Separate documented terminology from our theoretical interpretation.
-3. Do not assume that a studio term is an ontological primitive.
-4. Preserve the original domain meaning before abstraction.
-5. Record competing definitions when terminology is ambiguous.
-6. Distinguish production workflow terms from perceptual/cinematic concepts.
-7. Ask whether each concept can be represented as a relation, state, transformation, temporal operation, or perceptual operation.
-8. Treat the resulting ontology as a research hypothesis, not as a claim that Disney or Pixar themselves use this ontology.
-
-## Goal
-
-Disney and Pixar are therefore not the destination of the research. They are a **rich professional domain through which the theory can be tested**.
-
-```text
-GOAL
- ↓
-THEORY OF ANIMATED-FILM GENERATION
- ↓
+日本アニメーション学会
+        ↓
+『アニメーション研究』
+        ↓
+研究資料・論文・インタビュー
+        ↓
+素朴なアニメーション理論
+        ↓
+制作語彙
+        ↓
 CHANGE ONTOLOGY
- ↓
-DOMAIN RESEARCH
- ├── Disney
- └── Pixar
- ↓
-LANGUAGE / CONCEPT DESIGN
- ↓
-GENERATION THEORY
 ```
+
+学会資料を「正解集」として扱うのではなく、**アニメーションについて人間が何を問題として考えてきたかを知るための研究史**として読む。
+
+## Low-Tech Principle
+
+本研究では、技術の高度さとアニメーションの成立を同一視しない。
+
+```text
+高性能な道具
+    ≠
+良いアニメーション
+
+少ない絵
+少ない情報
+少ない道具
+    ↓
+何を変えるか
+    ↓
+どう並べるか
+    ↓
+どう知覚されるか
+    ↓
+アニメーション
+```
+
+理論の価値は、最新技術がなくても検証できることに置く。
+
+例えば、紙、鉛筆、ドット、静止画、簡単なスクリプト、固定FPSの連番画像だけでも研究仮説を検証できる状態を目指す。
+
+## Primitive Animation
+
+最小限の構成要素からアニメーションを考える。
+
+```text
+IMAGE A
+  ↓
+DIFFERENCE
+  ↓
+IMAGE B
+  ↓
+TIME
+  ↓
+PERCEPTION OF CHANGE
+```
+
+さらに複数の状態を扱う。
+
+```text
+STATE A
+ ↓
+STATE A1
+ ↓
+STATE A2
+ ↓
+STATE B
+```
+
+このとき重要なのは「動画を生成すること」ではなく、**どの差分を、どの順番で、どの時間間隔に置くか**である。
+
+## Theory Before Technology
+
+研究の順序を固定する。
+
+```text
+観察
+ ↓
+素朴な問い
+ ↓
+既存研究
+ ↓
+概念
+ ↓
+仮説
+ ↓
+ローテクな実験
+ ↓
+知覚・意味の確認
+ ↓
+理論
+```
+
+技術から理論を決めない。
+
+```text
+AI技術
+ ↓
+「何ができるか」
+```
+
+ではなく、
+
+```text
+アニメーション研究
+ ↓
+「何がアニメーションとして知覚されるか」
+ ↓
+「なぜそう知覚されるか」
+ ↓
+「最小限何が必要か」
+```
+
+を問う。
+
+## Relationship to Ontology
+
+既存の Change Ontology は、最新技術のためのモデルではなく、**ローテクなアニメーションを説明できる最小理論**として検証する。
+
+```text
+日本アニメーション研究
+        ↓
+素朴な概念
+        ↓
+STATE
+DIFFERENCE
+TRANSFORMATION
+TIME
+SEQUENCE
+PERCEPTION
+        ↓
+CHANGE ONTOLOGY
+        ↓
+ローテクなアニメーション
+```
+
+もし ontology が紙芝居、ドット、連番静止画、簡単な2Dアニメーションでも説明できるなら、より複雑な生成技術へ進む前の基礎理論として成立する可能性がある。
+
+## Case Positioning
+
+- `research-animation` — 理論本体
+- `anima` — 連番静止画による実践ケース
+- `dots` — 状態変化を扱う抽象ケース
+- `Toei Doga` — 日本の制作語彙・制作体制の歴史的ケース
+- 日本アニメーション学会 — 素朴な理論研究を収集する文献ネットワーク
+
+Disney / Pixar の最新システムやツール研究は主軸から外し、必要な場合のみ比較対象として参照する。
+
+## Working Principle
+
+> **最新技術でアニメーションを作るのではなく、アニメーションとは何かを理解したうえで、ローテクな道具で映画を作る。**
+
+本研究では、技術を目的にしない。
+
+**絵、時間、差分、間、順序、知覚。**
+
+この少数の要素から、どこまで「映画」を成立させられるかを研究する。
