@@ -1,88 +1,54 @@
 # research-animation
 
-## Goal
+**アニメ映画生成の理論を構築する研究プロジェクト群。**
 
-**アニメ映画生成の理論を構築する。**
+## Projects
 
-単なる動画生成技術の研究ではなく、エージェントが「映画として成立する変化」をどのように記述・設計・生成できるか、その理論的基盤を構築する。
+| Project | Research question | Status |
+|---|---|---|
+| [SDI](./projects/sdi/) | Static World と Dynamic Behavior を分離できるか | active |
+| [Dots](./projects/dots/) | 最小の点群で状態変化を記述できるか | active |
+| [Morph](./projects/morph/) | State A → B の変化経路を記述できるか | research |
+| [Montage](./projects/montage/) | 状態／ショット間の関係から意味を生成できるか | research |
+| [Architecture](./projects/architecture/) | 建築・空間を Static World として扱えるか | research |
+
+## Common theory
+
+複数プロジェクトを横断する共通モデルは以下で管理する。
+
+- [DOMAIN](./DOMAIN.md) — 研究対象と境界
+- [ONTOLOGY](./ONTOLOGY.md) — Change Ontology
+- [TAXONOMY](./TAXONOMY.md) — 概念の分類
+- [RQ](./RQ.md) — Research Questions
+- [PRINCIPLES](./PRINCIPLES.md) — 研究原則
+
+## Architecture
 
 ```text
-GOAL
- ↓
-アニメ映画生成の理論構築
- ↓
-CHANGE ONTOLOGY
- ↓
-STATE / DIFFERENCE / RELATION / TRANSFORMATION / MORPH / TIME
- ↓
-PERCEPTION / MEANING
- ↓
-GENERATION
- ↓
-ANIMATED FILM
+research-animation
+│
+├── projects/          # 問いごとの研究プロジェクト
+│   ├── sdi/
+│   ├── dots/
+│   ├── morph/
+│   ├── montage/
+│   └── architecture/
+│
+├── research/          # 実験記録・調査・スクリプト
+├── sdi/               # SDI PoC implementation
+├── dots/              # Dots implementation
+└── docs/              # 共通ドキュメント
 ```
 
-## Research Question
+原則は **1 project = 1 research question**。
 
-> 静止画・点・状態などの表現を、どのように「変化」として設計し、時間軸へ配置し、状態間の関係から意味を生成すれば、アニメーションを超えて**映画として成立する生成過程**を理論化できるのか。
+実装をプロジェクト定義に混ぜず、`projects/` は「何を検証するか」、実装ディレクトリは「どう検証するか」を担当する。
 
-## Research map
-
-```text
-GOAL
- ↓
-アニメ映画生成の理論
- ↓
-変化の理論
- ├── SDI
- │    Static World と Dynamic Behavior の境界
- │
- ├── anima
- │    絵コンテ駆動型アニメーションの実践事例
- │
- ├── dots
- │    状態遷移による抽象アニメーションの研究
- │
- ├── montage
- │    ショット／状態間の関係による意味生成
- │
- └── morph
-      状態Aから状態Bへの変化経路の設計
-```
-
-## SDI — Static–Dynamic Interface
-
-SDI は、変化を扱うための**最小のデータ境界**を検証する実験。
+## Core model
 
 ```text
-Static World
- Entity / Relation / Capability
-        │
-        ▼
-       SDI
-        │
-        ▼
-Dynamic Behavior
- Event / State / Transition
-        │
-        ▼
-Animation / Simulation / Interaction
-```
-
-PoC 01 では、同じ `world.json` に `orbit / pulse / attract` の Behavior を交換して適用する。
-
-- [SDI PoC 01](./sdi/) — 実験本体
-- [docs/](./docs/) — SDI のモデル、仮説、検証項目
-
-ここでの目的はエフェクトを増やすことではなく、**World の意味構造を変更せずに変化の規則を交換できるか**を検証すること。
-
-## Theoretical core
-
-アニメ映画を「大量の画像を動画にすること」としてではなく、**状態・差分・関係・変換・時間・知覚を構成すること**として捉える。
-
-特に、映画的な意味は個々のフレームやショットだけではなく、それらの**間の関係**から生成されるという観点を中核に置く。
-
-```text
+ENTITY
+  ↓
 STATE
   ↓
 DIFFERENCE
@@ -97,52 +63,7 @@ SEQUENCE
   ↓
 PERCEPTION
   ↓
-MEANING
-  ↓
 GENERATION
+  ↓
+ANIMATED FILM
 ```
-
-## Case: anima
-
-`anima` は、research-animation の**実践事例**として位置づける。
-
-PANACHEでは、静止画の連続をコマとして設計し、変化を時間軸へ配置して短い映像作品にした。
-
-ここで重要なのは実装技術ではなく、**「動きを直接生成する」のではなく「変化する状態を複数の静止画として設計する」**という考え方である。
-
-実装は `bonsai/anima` に置き、research-animation では理論・RQ・観察結果だけを扱う。
-
-## Case: dots
-
-`dots` は、点の集合・分散・同調・ずれ・発生・消滅などを通じて、**抽象的な変化そのものをアニメーションとして研究する事例**。
-
-実装詳細は本リポジトリの研究対象ではなく、必要に応じて実装側へ分離する。
-
-## Case: montage
-
-`montage` は、ショットや状態そのものではなく、**ショット／状態間の関係が知覚される意味を生成する**という映画理論上の事例。
-
-Eisensteinのモンタージュ理論を重要な先行思想として扱う。ただし、特定の格言を本人の直接引用として扱う場合は一次資料による裏取りを要求する。
-
-## Case: morph
-
-`morph` は、状態Aと状態Bだけを定義するのではなく、**AからBへ至る中間状態・変化経路そのものを生成対象として扱う**事例。
-
-```text
-A → A₁ → A₂ → A₃ → B
-```
-
-## Scope
-
-- 変化とは何か
-- 状態とフレーム／ショットの関係
-- 状態間の差分と関係
-- モンタージュによる意味生成
-- morphによる変化経路の設計
-- 時間配置と知覚
-- 静止画連続による運動表現
-- 抽象的な運動が意味を生む条件
-- エージェントが映画的変化を生成するための中間表現
-- アニメ映画生成を成立させる理論的条件
-
-実装・ツール・生成手順は各ケース側に置き、本リポジトリは**アニメ映画生成の理論・RQ・観察結果・概念モデル**を蓄積する。
