@@ -1,0 +1,27 @@
+{
+  "experiment_id": "EXP-CTX-001",
+  "group": "C",
+  "current_run": {
+    "run_index": 2,
+    "prompt": "a girl standing in an abandoned factory, sunset lighting, wide shot",
+    "negative_prompt": "low quality, blurry, distorted, text, watermark, bright daylight, cheerful mood",
+    "parameters": {
+      "cfg_scale": 7.0,
+      "steps": 20,
+      "seed": 302,
+      "width": 512,
+      "height": 512
+    },
+    "image_path": "experiments/EXP-CTX-001/C/runs/run-002.png",
+    "evaluation": {
+      "quality": 4,
+      "composition": 3,
+      "color": 3,
+      "line": 2,
+      "mood": 2,
+      "semantic": 3,
+      "preference": 4
+    },
+    "feedback_text": "Aggregate score = 3.0, target = 4.0"
+  }
+}

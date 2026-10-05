@@ -1,0 +1,89 @@
+{
+  "schema_version": "EXP-CTX-001-1",
+  "experiment_id": "EXP-CTX-001",
+  "group": "D",
+  "target": {
+    "description": "夕暮れの廃工場に立つ少女。構図は横長、左寄り。色温度は低く、橙が強い。線は力強く、ムードは寂寥感。",
+    "ontology": [
+      "STATE:廃工場+少女",
+      "TRANSFORMATION:日中→夕暮れ",
+      "RELATION:左寄り構図",
+      "SEQUENCE:ワイド→ミディアム"
+    ],
+    "target_scores": {
+      "quality": 4,
+      "composition": 4,
+      "color": 4,
+      "line": 4,
+      "mood": 4,
+      "semantic": 4,
+      "preference": 4
+    }
+  },
+  "initial_parameters": {
+    "model": "SD 1.5",
+    "prompt": "a girl standing in an abandoned factory, sunset lighting, wide shot",
+    "negative_prompt": "low quality, blurry, distorted, text, watermark, bright daylight, cheerful mood",
+    "cfg_scale": 7.0,
+    "steps": 20,
+    "seed": 42,
+    "width": 512,
+    "height": 512
+  },
+  "previous_runs": [
+    {
+      "run_index": 1,
+      "prompt": "a girl standing in an abandoned factory, sunset lighting, wide shot",
+      "negative_prompt": "low quality, blurry, distorted, text, watermark, bright daylight, cheerful mood",
+      "parameters": {
+        "cfg_scale": 7.0,
+        "steps": 20,
+        "seed": 42,
+        "width": 512,
+        "height": 512
+      },
+      "ontology": [
+        "STATE:廃工場+少女",
+        "TRANSFORMATION:日中→夕暮れ"
+      ],
+      "image_path": "experiments/EXP-CTX-001/D/runs/run-001.png",
+      "evaluation": {
+        "quality": 3,
+        "composition": 2,
+        "color": 4,
+        "line": 3,
+        "mood": 2,
+        "semantic": 3,
+        "preference": 3
+      },
+      "feedback_text": "構図が中央寄りすぎる。もっと左に主体を寄せる。ムードが明るい。色は合格。線を力強く。"
+    }
+  ],
+  "current_run": {
+    "run_index": 2,
+    "prompt": "構図が中央寄りすぎる。もっと左に主体を寄せる。ムードが明るい。色は合格。線を力強く。, a girl standing in an abandoned factory, sunset lighting, wide shot",
+    "negative_prompt": "low quality, blurry, distorted, text, watermark, bright daylight, cheerful mood",
+    "parameters": {
+      "cfg_scale": 7.0,
+      "steps": 20,
+      "seed": 43,
+      "width": 512,
+      "height": 512
+    },
+    "ontology": [
+      "STATE:廃工場+少女",
+      "TRANSFORMATION:日中→夕暮れ"
+    ],
+    "image_path": "experiments/EXP-CTX-001/D/runs/run-002.png",
+    "evaluation": {
+      "quality": 4,
+      "composition": 3,
+      "color": 4,
+      "line": 4,
+      "mood": 3,
+      "semantic": 4,
+      "preference": 4
+    },
+    "feedback_text": "構図は改善傾向。もう少し左寄りに。ムードは暗くなったが、もっと寂寥感を強く。線・色は合格。"
+  }
+}

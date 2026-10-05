@@ -1,0 +1,11 @@
+{
+  "run_id": "run-006",
+  "model": "mock",
+  "prompt": "a girl standing in an abandoned factory, sunset lighting, wide shot",
+  "negative_prompt": "low quality, blurry, distorted, text, watermark, bright daylight, cheerful mood",
+  "width": 512,
+  "height": 512,
+  "seed": 306,
+  "image_path": "experiments/EXP-CTX-001/C/runs/run-006.png",
+  "generated_at": "2026-10-05T05:57:50.662567+00:00"
+}

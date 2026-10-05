@@ -1,0 +1,11 @@
+{
+  "run_id": "run-003",
+  "model": "mock",
+  "prompt": "構図は改善傾向。もう少し左寄りに。ムードは暗くなったが、もっと寂寥感を強く。線・色は合格。, 構図が中央寄りすぎる。もっと左に主体を寄せる。ムードが明るい。色は合格。線を力強く。, a girl standing in an abandoned factory, sunset lighting, wide shot",
+  "negative_prompt": "low quality, blurry, distorted, text, watermark, bright daylight, cheerful mood",
+  "width": 512,
+  "height": 512,
+  "seed": 44,
+  "image_path": "experiments/EXP-CTX-001/D/runs/run-003.png",
+  "generated_at": "2026-10-05T05:47:24.432470+00:00"
+}

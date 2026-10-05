@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Generated media (large binaries)
+*.mp4
+*.gif
+*.avi
+*.mov
+
+# Model weights
+*.safetensors
+*.ckpt
+*.pth
+*.bin
+
+# Generated frame pools (can be reproduced)
+frames/
+outputs/
+
+# Experiment mock images (large, reproducible from seed)
+**/runs/*.png
+**/runs/*.jpg
+*.manifest.json
+
+# OS
+.DS_Store
+Thumbs.db
