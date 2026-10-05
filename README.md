@@ -34,6 +34,9 @@ GOAL
 アニメ映画生成の理論
  ↓
 変化の理論
+ ├── SDI
+ │    Static World と Dynamic Behavior の境界
+ │
  ├── anima
  │    絵コンテ駆動型アニメーションの実践事例
  │
@@ -46,6 +49,32 @@ GOAL
  └── morph
       状態Aから状態Bへの変化経路の設計
 ```
+
+## SDI — Static–Dynamic Interface
+
+SDI は、変化を扱うための**最小のデータ境界**を検証する実験。
+
+```text
+Static World
+ Entity / Relation / Capability
+        │
+        ▼
+       SDI
+        │
+        ▼
+Dynamic Behavior
+ Event / State / Transition
+        │
+        ▼
+Animation / Simulation / Interaction
+```
+
+PoC 01 では、同じ `world.json` に `orbit / pulse / attract` の Behavior を交換して適用する。
+
+- [SDI PoC 01](./sdi/) — 実験本体
+- [docs/](./docs/) — SDI のモデル、仮説、検証項目
+
+ここでの目的はエフェクトを増やすことではなく、**World の意味構造を変更せずに変化の規則を交換できるか**を検証すること。
 
 ## Theoretical core
 
