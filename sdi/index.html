@@ -36,22 +36,40 @@ let world;
 let behavior = 'orbit';
 let t = 0;
 
-const behaviors = {
-  orbit(entity, i, time) {
-    const r = Math.hypot(entity.x, entity.y);
-    const base = Math.atan2(entity.y, entity.x);
-    const a = base + time * (0.55 + i * 0.07);
-    return { x: Math.cos(a) * r, y: Math.sin(a) * r };
-  },
-  pulse(entity, i, time) {
-    const k = 1 + 0.22 * Math.sin(time * 2.2 + i);
-    return { x: entity.x * k, y: entity.y * k };
-  },
-  attract(entity, i, time) {
-    const k = 0.58 + 0.30 * (0.5 + 0.5 * Math.sin(time * 1.5 + i * .8));
-    return { x: entity.x * k, y: entity.y * k };
+let behaviors = {};
+
+async function loadWorld() {
+  const [worldResponse, behaviorResponse] = await Promise.all([
+    fetch('world.json'),
+    fetch('behaviors.json')
+  ]);
+  world = await worldResponse.json();
+  const definitions = await behaviorResponse.json();
+  behaviors = Object.fromEntries(Object.entries(definitions).map(([name, definition]) => [
+    name,
+    createBehavior(definition)
+  ]));
+}
+
+function createBehavior(definition) {
+  if (definition.type === 'orbit') {
+    return (entity, i, time) => {
+      const r = Math.hypot(entity.x, entity.y);
+      const base = Math.atan2(entity.y, entity.x);
+      const a = base + time * (definition.speed + i * definition.index_speed);
+      return { x: Math.cos(a) * r, y: Math.sin(a) * r };
+    };
   }
-};
+  if (definition.type === 'scale') {
+    return (entity, i, time) => {
+      const k = definition.base + definition.amplitude * (
+        0.5 + 0.5 * Math.sin(time * definition.frequency + i * definition.phase)
+      );
+      return { x: entity.x * k, y: entity.y * k };
+    };
+  }
+  throw new Error('Unknown behavior type: ' + definition.type);
+}
 
 function button(name) {
   const b = document.createElement('button');
@@ -62,7 +80,7 @@ function button(name) {
 }
 ['orbit','pulse','attract'].map(button)[0].classList.add('active');
 
-fetch('world.json').then(r => r.json()).then(data => { world = data; requestAnimationFrame(loop); });
+loadWorld().then(() => requestAnimationFrame(loop));
 
 function point(p) {
   return { x: canvas.width/2 + p.x * 330, y: canvas.height/2 - p.y * 330 };
