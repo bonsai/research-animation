@@ -7,10 +7,10 @@
   },
   "pulse": {
     "type": "scale",
-    "base": 1.0,
+    "base": 0.78,
     "amplitude": 0.44,
     "frequency": 2.2,
-    "phase": 2.0,
+    "phase": 1.0,
     "description": "Scale entities rhythmically around the static world."
   },
   "attract": {
