@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>DISNEY-QUOTES Network</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+body { margin: 0; background: #0f172a; color: #e2e8f0; font-family: "Hiragino Kaku Gothic ProN", sans-serif; }
+#vis { width: 100vw; height: 100vh; }
+.legend { position: absolute; top: 12px; right: 12px; background: rgba(15,23,42,0.9); padding: 10px 14px; border-radius: 8px; font-size: 12px; }
+.legend h4 { margin: 0 0 6px; font-size: 12px; }
+.legend-item { display: flex; align-items: center; gap: 6px; margin: 4px 0; }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+#tooltip { position: absolute; pointer-events: none; background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 8px; font-size: 12px; display: none; z-index: 10; max-width: 280px; }
+.node-label { font-size: 11px; fill: #cbd5e1; pointer-events: none; text-shadow: 0 1px 2px #0f172a; }
+</style>
+</head>
+<body>
+<div id="vis"></div>
+<div class="legend">
+<h4>Node types</h4>
+<div class="legend-item"><div class="dot" style="background:#f59e0b"></div>quote</div>
+<div class="legend-item"><div class="dot" style="background:#22c55e"></div>concept</div>
+<div class="legend-item"><div class="dot" style="background:#3b82f6"></div>operation</div>
+</div>
+<div id="tooltip"></div>
+<script>
+const {nodes, edges} = NETWORK_DATA;
+const w = document.getElementById('vis').clientWidth, h = document.getElementById('vis').clientHeight;
+const svg = d3.select('#vis').append('svg').attr('width', w).attr('height', h);
+const color = {quote: '#f59e0b', concept: '#22c55e', operation: '#3b82f6'};
+const g = svg.append('g');
+const link = g.selectAll('.link').data(edges).enter().append('line')
+    .attr('class', 'link').attr('stroke', '#475569').attr('stroke-width', 1);
+const node = g.selectAll('.node').data(nodes).enter().append('g')
+    .attr('class', 'node').call(d3.drag().on('drag', dragged)).on('click', clicked);
+node.append('circle').attr('r', d => d.group === 'quote' ? 8 : 5)
+    .attr('fill', d => color[d.group]);
+node.append('text').attr('class', 'node-label')
+    .attr('dx', 10).attr('dy', 4).text(d => d.label);
+d3.forceSimulation(nodes)
+    .force('link', d3.forceLink(edges).id(d => d.id).distance(d => d.source.group === d.target.group ? 80 : 140))
+    .force('charge', d3.forceManyBody().strength(-400))
+    .force('center', d3.forceCenter(w/2, h/2))
+    .on('tick', () => {
+        link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+            .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+        node.attr('transform', d => `translate(${d.x},${d.y})`);
+        node.select('.node-label').attr('x', d => d.x + 10).attr('y', d => d.y + 4);
+    });
+function clicked(event, d) {
+    const tt = document.getElementById('tooltip');
+    if (d.group === 'quote') {
+        tt.innerHTML = `<strong>${d.label}</strong><br>${d.author}<br>"${d.text}"`;
+    } else if (d.group === 'concept') {
+        tt.textContent = 'Concept: ' + d.label;
+    } else {
+        tt.textContent = 'Operation: ' + d.label;
+    }
+    tt.style.display = 'block';
+    tt.style.left = (event.clientX + 8) + 'px';
+    tt.style.top = (event.clientY + 8) + 'px';
+}
+function dragged(event, d) { d.fx = d.x; d.fy = d.y; }
+</script>
+</body>
+</html>

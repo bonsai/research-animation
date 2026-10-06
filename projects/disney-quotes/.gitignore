@@ -1,0 +1,19 @@
+# Runtime corpus DB (regenerate with: ./run.sh --init)
+disney-quotes.db
+
+# Generated from corpus DB — not tracked
+corpus/quotes.jsonl
+corpus/candidates.jsonl
+viz/network.json
+viz/index.html
+site/index.html
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.env
+
+# OS
+.DS_Store
+Thumbs.db

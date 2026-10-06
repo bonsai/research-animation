@@ -1,0 +1,2 @@
+# dependencies: none (stdlib only)
+# viz/index.html loads d3.v7 from CDN at view time
