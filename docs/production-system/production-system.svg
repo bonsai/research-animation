@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">AIアニメ映画制作システム</title>
+  <desc id="desc">Reference、Generation、Eval/JEV、TPS-Gateの4層構造と、合格・修正ループを示す図。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+    <style>
+      .h{font:700 25px sans-serif;fill:#0f172a}
+      .sub{font:15px sans-serif;fill:#334155}
+      .head{font:700 19px sans-serif;fill:#0f172a}
+      .body{font:14px sans-serif;fill:#1e293b}
+      .small{font:12px sans-serif;fill:#334155}
+      .layer{stroke:#334155;stroke-width:2;rx:16}
+      .flow{stroke:#334155;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
+      .feedback{stroke:#b45309;stroke-width:2.5;fill:none;stroke-dasharray:8 6;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="760" fill="#ffffff"/>
+  <text x="48" y="48" class="h">AIアニメ映画制作システム</text>
+  <text x="48" y="76" class="sub">生成をお呪いから科学へ、錬金術から工場へ</text>
+
+  <rect x="48" y="112" width="250" height="205" class="layer" fill="#e0f2fe"/>
+  <text x="70" y="145" class="head">1. REFERENCE</text>
+  <text x="70" y="173" class="body">何を作るか — 正本と参照</text>
+  <text x="70" y="202" class="body">TEXT · YAML · PNG</text>
+  <text x="70" y="226" class="body">HTML · SVG · RAG</text>
+  <text x="70" y="261" class="small">構造化データが正本</text>
+  <text x="70" y="282" class="small">RAGは検索用。メディアと</text>
+  <text x="70" y="299" class="small">メタデータは分離する</text>
+
+  <rect x="348" y="112" width="250" height="205" class="layer" fill="#dcfce7"/>
+  <text x="370" y="145" class="head">2. GENERATION</text>
+  <text x="370" y="173" class="body">どう候補を作るか</text>
+  <text x="370" y="202" class="body">Model + Recipe + Run</text>
+  <text x="370" y="226" class="body">候補素材と実行記録</text>
+  <text x="370" y="261" class="small">モデル・条件・参照版・</text>
+  <text x="370" y="282" class="small">seed・費用を可能な範囲で</text>
+  <text x="370" y="299" class="small">記録して再現・比較する</text>
+
+  <rect x="648" y="112" width="250" height="205" class="layer" fill="#fef3c7"/>
+  <text x="670" y="145" class="head">3. EVAL / JEV</text>
+  <text x="670" y="173" class="body">何を合格とするか</text>
+  <text x="670" y="202" class="body">命題 · 証拠 · 基準</text>
+  <text x="670" y="226" class="body">スコア · 確信度 · 判定</text>
+  <text x="670" y="261" class="small">PASS / REVISE / REJECT</text>
+  <text x="670" y="282" class="small">不確実なら人間レビューへ</text>
+
+  <rect x="948" y="112" width="204" height="205" class="layer" fill="#f3e8ff"/>
+  <text x="968" y="145" class="head">4. TPS / GATE</text>
+  <text x="968" y="173" class="body">工程と流れを管理</text>
+  <text x="968" y="202" class="body">A: 仕様・参照</text>
+  <text x="968" y="226" class="body">B: 素材検査</text>
+  <text x="968" y="250" class="body">C: ショット検査</text>
+  <text x="968" y="274" class="body">D: 納品検査</text>
+  <text x="968" y="299" class="small">合格品だけ次工程へ</text>
+
+  <path d="M298 215 H342" class="flow"/>
+  <path d="M598 215 H642" class="flow"/>
+  <path d="M898 215 H942" class="flow"/>
+
+  <rect x="948" y="390" width="204" height="88" rx="14" stroke="#166534" stroke-width="2" fill="#f0fdf4"/>
+  <text x="1050" y="421" text-anchor="middle" class="head">完成作品</text>
+  <text x="1050" y="447" text-anchor="middle" class="body">Gate A–D 通過</text>
+  <path d="M1050 317 V384" class="flow"/>
+
+  <rect x="348" y="390" width="550" height="88" rx="14" stroke="#b45309" stroke-width="2" fill="#fffbeb"/>
+  <text x="623" y="421" text-anchor="middle" class="head">修正ループ</text>
+  <text x="623" y="447" text-anchor="middle" class="body">失敗原因に応じて該当工程へ戻す。全件を無差別に再生成しない。</text>
+  <path d="M773 317 V352 H623 V384" class="feedback"/>
+  <path d="M348 434 H178 V323" class="feedback"/>
+
+  <text x="48" y="535" class="head">制作パイプライン</text>
+  <text x="48" y="565" class="body">企画・世界観 → 脚本 → キャラクター／美術設定 → 絵コンテ／アニマティック → ショット生成</text>
+  <text x="48" y="590" class="body">→ Eval/JEV → 編集／合成 → 音響／音楽 → 最終QC／納品</text>
+
+  <text x="48" y="637" class="head">KPI</text>
+  <text x="48" y="665" class="body">初回合格率 · 最終合格率 · 手戻り率 · 合格ショットあたりコスト · 正本設定との一貫性</text>
+  <text x="48" y="714" class="small">原則: Referenceが定義し、Generationが候補を作り、JEV/Evalが判断し、TPS/Gateが完成までの流れを管理する。</text>
+</svg>
