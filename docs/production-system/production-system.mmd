@@ -1,0 +1,36 @@
+flowchart TB
+    R["REFERENCE<br/>正本・参照コンテクスト"]
+    G["GENERATION<br/>条件を記録して候補を生成"]
+    E["EVAL / JEV<br/>命題・証拠・基準・判定"]
+    P["PRODUCTION SYSTEM<br/>TPS / GATE・工程制御"]
+    A["採用素材・完成作品"]
+    X["修正ルート<br/>原因工程へ戻す"]
+
+    R -->|"仕様・参照版"| G
+    G -->|"候補＋実行記録"| E
+    E -->|"合格"| P
+    E -->|"修正 / 却下"| X
+    X -->|"原因に応じて再作業"| R
+    X --> G
+    X --> E
+    P -->|"Gate通過"| A
+    P -. "工程・KPI・トレーサビリティ" .-> E
+
+    subgraph REF["Reference formats"]
+      T["TEXT"]
+      Y["YAML"]
+      PNG["PNG"]
+      HTML["HTML"]
+      SVG["SVG"]
+      RAG["RAG index"]
+    end
+    REF -. "参照資料を統合" .-> R
+
+    subgraph GATES["Production Gates"]
+      GA["A: Spec / Reference readiness"]
+      GB["B: Asset inspection"]
+      GC["C: Shot inspection"]
+      GD["D: Delivery inspection"]
+      GA --> GB --> GC --> GD
+    end
+    P --- GATES
