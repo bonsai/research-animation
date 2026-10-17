@@ -1,0 +1,149 @@
+schema_version: "1.0"
+id: ai-animated-film-production-system
+title: "AIアニメ映画制作システム"
+domain: animated_feature_film
+thesis: "生成をお呪いから科学へ、錬金術から工場へ"
+purpose:
+  - reproducible_generation
+  - evidence_based_quality_judgment
+  - flow_efficiency
+  - waste_and_rework_reduction
+
+layers:
+  - id: reference
+    label: Reference
+    purpose: "何を作るかを定義する正本と参照コンテクスト"
+    inputs: [ideas, scripts, worldbuilding, characters, visual_references]
+    artifacts:
+      - type: text
+        examples: [ideas, scripts, screenplays, code]
+      - type: yaml
+        examples: [configuration, canon_metadata, generation_parameters]
+      - type: png
+        examples: [rough_sketches, photos, generated_images]
+      - type: html
+        examples: [character_sheets]
+      - type: svg
+        examples: [storyboards, four_panel_comics]
+      - type: rag
+        examples: [chunk_database, retrieval_index]
+    rules:
+      - "構造化データを canon/source of truth とする"
+      - "メディア本体とメタデータを分離する"
+      - "RAGは検索・取得用であり、正本そのものではない"
+      - "参照資料には出典・版・用途を記録する"
+    output: approved_reference_context
+
+  - id: generation
+    label: Generation
+    purpose: "参照コンテクストと仕様から再現可能な候補を生成する"
+    inputs: [approved_reference_context, production_spec]
+    records:
+      - model_and_version
+      - prompt_and_parameters
+      - seed_when_available
+      - source_reference_versions
+      - run_timestamp
+      - compute_cost
+      - candidate_asset_uri
+    outputs: [candidate_images, candidate_shots, candidate_audio, candidate_video]
+    rules:
+      - "候補と採用済み素材を区別する"
+      - "生成条件と参照版を記録する"
+      - "同一条件の比較と再実行を可能にする"
+
+  - id: eval
+    label: Eval / JEV
+    purpose: "命題・証拠・基準に基づいて品質を検査し、採否を判断する"
+    concepts:
+      proposition: "検証可能な主張または合格条件"
+      evidence: "判断を支える参照・素材・測定結果"
+      rubric: "評価軸と判定ルール"
+      score: "評価基準に沿った測定値"
+      confidence: "判断の確からしさ"
+      verdict: [pass, revise, reject, needs_human_review]
+    checks:
+      - canon_consistency
+      - character_consistency
+      - composition_and_intent
+      - visual_artifacts
+      - shot_continuity
+      - timing_and_motion
+      - audio_quality
+      - delivery_compliance
+    outputs: [evaluation_record, verdict, revision_route]
+    rules:
+      - "判断には根拠を結び付ける"
+      - "不確実な判断は人間レビューへ送る"
+      - "失敗理由と修正先を記録する"
+
+  - id: production
+    label: Production System / TPS-Gate
+    purpose: "工程を制御し、合格した素材だけを次工程へ流す"
+    principles:
+      - flow
+      - quality_at_source
+      - stop_and_fix
+      - reduce_waiting
+      - reduce_duplicate_generation
+      - reduce_rework
+      - traceability
+    gates:
+      - id: A
+        name: spec_reference_readiness
+        question: "仕様と参照資料は制作可能な状態か"
+      - id: B
+        name: asset_inspection
+        question: "素材は設定・構図・意図・品質に適合しているか"
+      - id: C
+        name: shot_inspection
+        question: "ショットは連続性・タイミング・動き・音声に適合しているか"
+      - id: D
+        name: delivery_inspection
+        question: "納品物は映像・音声・字幕・形式・権利の要件を満たすか"
+    failure_policy: "原因に応じて該当工程へ戻し、全工程の無差別な再生成を避ける"
+
+pipeline:
+  - planning_and_worldbuilding
+  - screenplay
+  - character_and_art_design
+  - storyboard_and_animatic
+  - shot_generation
+  - eval_and_jev
+  - editing_and_compositing
+  - audio_and_music
+  - final_quality_control
+  - delivery
+
+revision_routing:
+  reference_mismatch: reference
+  generation_artifact: generation
+  unclear_acceptance_criteria: eval
+  continuity_or_timing_issue: storyboard_and_animatic
+  edit_or_composite_issue: editing_and_compositing
+  audio_issue: audio_and_music
+  delivery_compliance_issue: final_quality_control
+
+kpis:
+  - id: first_pass_yield
+    label: "初回合格率"
+    definition: "初回評価で合格した素材数 / 初回評価した素材数"
+  - id: final_yield
+    label: "最終合格率"
+    definition: "最終的に採用された素材数 / 制作対象素材数"
+  - id: rework_rate
+    label: "手戻り率"
+    definition: "修正・再作業が発生した素材数 / 評価対象素材数"
+  - id: cost_per_accepted_shot
+    label: "合格ショットあたりコスト"
+    definition: "生成費と修正工数の合計 / 合格ショット数"
+  - id: canon_consistency_rate
+    label: "正本設定との一貫性"
+    definition: "正本と矛盾しない評価済み要素数 / 評価済み要素数"
+
+principles:
+  - "Referenceは制作対象を定義する"
+  - "Generationは候補を作る"
+  - "JEV/Evalは根拠を示して合否を判断する"
+  - "TPS/Gateは工程と流れを管理する"
+  - "各層は疎結合とし、モデル交換で正本や品質基準を失わない"
