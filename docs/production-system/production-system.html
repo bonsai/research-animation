@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AIアニメ映画制作システム</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #172033; background: #f8fafc; }
+    body { margin: 0; line-height: 1.65; }
+    main { max-width: 1000px; margin: auto; padding: 2rem 1.25rem 4rem; }
+    h1 { line-height: 1.2; } h2 { margin-top: 2.2rem; }
+    .thesis { font-size: 1.15rem; font-weight: 700; }
+    .layers { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; }
+    article, .panel { border: 1px solid #cbd5e1; border-radius: 14px; padding: 1rem; background: white; }
+    article h3 { margin-top: 0; }
+    .ref { border-top: 5px solid #0284c7; } .gen { border-top: 5px solid #16a34a; }
+    .eval { border-top: 5px solid #d97706; } .tps { border-top: 5px solid #9333ea; }
+    li { margin: .35rem 0; } code { background: #e2e8f0; padding: .1rem .3rem; border-radius: 4px; }
+    .links { display: flex; flex-wrap: wrap; gap: .75rem; }
+    a { color: #075985; } footer { margin-top: 3rem; color: #475569; font-size: .9rem; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <p>PRODUCTION ARCHITECTURE / ANIMATED FEATURE FILM</p>
+    <h1>AIアニメ映画制作システム</h1>
+    <p class="thesis">生成をお呪いから科学へ、錬金術から工場へ。</p>
+    <p>Referenceが制作対象を定義し、Generationが候補を作り、Eval/JEVが根拠をもって判断し、Production System（TPS/Gate）が完成までの流れを管理する。</p>
+  </header>
+
+  <section aria-labelledby="layers-heading">
+    <h2 id="layers-heading">4つの独立レイヤー</h2>
+    <div class="layers">
+      <article class="ref">
+        <h3>1. Reference</h3>
+        <p><strong>問い：何を作るか？</strong></p>
+        <p>物語・脚本・キャラクター・世界観・絵コンテなどの正本と参照コンテクスト。</p>
+        <ul><li>TEXT：アイデア、脚本、コード</li><li>YAML：設定・構成</li><li>PNG：ラフ、写真、生成画像</li><li>HTML：キャラクターシート</li><li>SVG：絵コンテ、4コマ</li><li>RAG：チャンク検索インデックス</li></ul>
+        <p>構造化データを正本とし、RAGは検索用として扱う。</p>
+      </article>
+      <article class="gen">
+        <h3>2. Generation</h3>
+        <p><strong>問い：どう候補を作るか？</strong></p>
+        <p>モデル、プロンプト、パラメータ、参照版、seed（利用可能な場合）、実行時刻、費用、生成物のURIを記録する。</p>
+        <p>候補と採用済み素材を分け、再現・比較・再実行を可能にする。</p>
+      </article>
+      <article class="eval">
+        <h3>3. Eval / JEV</h3>
+        <p><strong>問い：何を合格とするか？</strong></p>
+        <p>命題、証拠、評価基準、スコア、確信度を紐付けて判断する。</p>
+        <p>判定：<code>PASS</code> / <code>REVISE</code> / <code>REJECT</code> / <code>NEEDS_HUMAN_REVIEW</code></p>
+        <p>設定一貫性、構図、破綻、意図、ショット連続性、タイミング、音声を検査する。</p>
+      </article>
+      <article class="tps">
+        <h3>4. Production System / TPS-Gate</h3>
+        <p><strong>問い：どう完成まで流すか？</strong></p>
+        <ul><li>Gate A：仕様・参照資料の準備</li><li>Gate B：素材検査</li><li>Gate C：ショット検査</li><li>Gate D：納品検査</li></ul>
+        <p>合格素材だけを次工程へ送り、待ち・手戻り・重複生成・廃棄を減らす。</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>制作フロー</h2>
+    <div class="panel">
+      <p>企画・世界観 → 脚本 → キャラクター／美術設定 → 絵コンテ／アニマティック → ショット生成 → Eval/JEV → 編集／合成 → 音響／音楽 → 最終QC／納品</p>
+      <p><strong>不合格時：</strong>失敗原因に応じて該当工程へ戻す。すべてを最初から再生成するのではなく、原因と修正先を記録する。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>評価指標（KPI）</h2>
+    <ul>
+      <li><strong>First-pass yield：</strong>初回評価で合格した素材の割合</li>
+      <li><strong>Final yield：</strong>最終的に採用された素材の割合</li>
+      <li><strong>Rework rate：</strong>修正・再作業が発生した素材の割合</li>
+      <li><strong>Cost per accepted shot：</strong>生成費＋修正工数を合格ショット数で割ったコスト</li>
+      <li><strong>Canon consistency rate：</strong>正本設定との一貫性</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>再利用ファイル</h2>
+    <nav class="links" aria-label="関連資料">
+      <a href="./production-system.yaml">YAML（正本モデル）</a>
+      <a href="./production-system.mmd">Mermaid</a>
+      <a href="./production-system.puml">PlantUML</a>
+      <a href="./production-system.svg">SVG図</a>
+      <a href="./README.md">資料一覧</a>
+    </nav>
+  </section>
+
+  <footer>
+    <p>原則：メディア本体とメタデータは分離する。各層は疎結合とし、モデルを交換しても正本・品質基準・工程管理を失わない。</p>
+  </footer>
+</main>
+</body>
+</html>
