@@ -5,8 +5,13 @@ import argparse
 import json
 import math
 import re
+import sys
 from collections import Counter
 from pathlib import Path
+
+# Windows consoles default to cp932; titles contain characters it cannot encode.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 HERE = Path(__file__).resolve().parent
 TOKEN_RE = re.compile(r"[a-zA-Z0-9]+|[ぁ-んァ-ヶ一-龯ー]+", re.UNICODE)
