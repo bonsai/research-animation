@@ -11,6 +11,7 @@
 | [Morph](./projects/morph/) | State A → B の変化経路を記述できるか | research |
 | [Montage](./projects/montage/) | 状態／ショット間の関係から意味を生成できるか | research |
 | [Architecture](./projects/architecture/) | 建築・空間を Static World として扱えるか | research |
+| [Skeleton Dance](./projects/skeleton-dance/) | 音楽同期したダンス動作を骨格系列と意味空間で比較できるか | research |
 
 ## Common theory
 
