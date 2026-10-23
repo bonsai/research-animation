@@ -9,6 +9,7 @@ research-animation の研究をテーマごとのプロジェクトに分ける�
 | [Morph](./morph/) | State A → State B の変化経路をどう記述するか | [research](../research/) |
 | [Montage](./montage/) | 状態／ショット間の関係から意味をどう生成するか | theory |
 | [Architecture](./architecture/) | 建築・空間を Static World として扱えるか | [research](../research/) |
+| [Skeleton Dance](./skeleton-dance/) | 音楽同期したダンス動作を骨格系列と意味空間で比較できるか | research specification |
 
 ## Boundary
 
