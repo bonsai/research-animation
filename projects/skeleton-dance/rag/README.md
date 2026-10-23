@@ -35,7 +35,7 @@ python query.py "dance pose temporal segmentation" --top-k 5 --retrieve-only
 
 ## Generate a grounded answer
 
-Set `OPENAI_API_KEY` in the environment (or copy `.env.example` to `.env` and load it using your preferred environment manager), then run:
+Set `OPENAI_API_KEY` in your environment, then run:
 
 ```bash
 # PowerShell
