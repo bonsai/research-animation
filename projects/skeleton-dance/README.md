@@ -42,12 +42,24 @@ These axes are a project proposal, not an established standard. Semantic labels 
 6. Visualize selected features in a Semantic Cube and compare motion segments.
 7. Evaluate reconstruction and semantic agreement; record failure cases.
 
+## Literature RAG
+
+The initial citation-first RAG prototype lives in [rag/](./rag/).
+
+- [RAG README and run instructions](./rag/README.md)
+- [Source registry](./rag/sources.jsonl)
+- [Retrieval knowledge chunks](./rag/knowledge.jsonl)
+- [Local query CLI](./rag/query.py)
+
+The current retriever is lexical (BM25-like term scoring), not embedding-based semantic search. Its corpus contains paraphrased notes from public bibliographic/abstract records, not copied full papers. Each answer candidate includes a source URL and evidence type; verify claims against the original publication.
+
 ## Evaluation
 
 - Pose reconstruction: normalized keypoint error where reference annotations are available.
 - Segmentation: boundary precision/recall or F1 against manually annotated segments.
 - Rhythm: time offset between annotated beats and movement events.
 - Semantic comparison: human-rated similarity versus feature-space similarity.
+- RAG quality: answerable research questions, expected source IDs, citation coverage, and unsupported-claim rate.
 - Reproducibility: documented source, processing parameters, annotations, and scripts.
 
 Do not report these metrics until an experiment has actually been run.
